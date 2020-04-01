@@ -1,0 +1,14 @@
+extern crate bindgen;
+use std::path::PathBuf;
+
+fn main() {
+    let bindings = bindgen::Builder::default()
+        .header("index.h")  // 输入的c头文件
+        .generate()
+        .expect("Unable to generate bindings for index.h");
+
+    let out_path = PathBuf::from("src");
+    bindings
+        .write_to_file(out_path.join("cmod_index.rs"))  // 输出的rs文件
+        .expect("Counld not write cmod_index.rs");
+}
